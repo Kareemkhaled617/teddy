@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
 
   HomeScreen({super.key});
+
   final AuthController authController = Get.put(AuthController());
 
   @override
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Center(
-                        child: Image.asset('assets/1.png'),
+                        child: Image.asset('assets/logo.png'),
                       ),
                       InkWell(
                         onTap: () {
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 80, vertical: 16),
                           decoration: BoxDecoration(
-                            // color: ColorManager.secondary,
+                            color: const Color(0xffFFC400),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Text(
