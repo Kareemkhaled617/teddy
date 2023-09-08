@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bubbletea/util/links.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -12,7 +13,23 @@ class Crud {
 
   static postRequest(String url, Map data) async {
     try {
-      var response = await post(Uri.parse(url), body: data);
+      var response = await post(Uri.parse(url), body: data, headers: header);
+      if (response.statusCode == 200) {
+        var resData = jsonDecode(response.body);
+        print('**************************');
+        print(resData);
+        return resData;
+      } else {
+        print('Status Code ${response.statusCode}');
+      }
+    } catch (ex) {
+      print('Exception ${ex.toString()}');
+    }
+  }
+
+  static getRequest(String url) async {
+    try {
+      var response = await get(Uri.parse(url), headers: header);
       if (response.statusCode == 200) {
         var resData = jsonDecode(response.body);
         print('**************************');

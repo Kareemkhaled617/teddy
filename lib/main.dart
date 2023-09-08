@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       home: sharedPreferences.getString('token') != null
           ? HomeScreen()
           : const SplashScreen(),
+      // home: SignUpPage(),
     );
   }
 }

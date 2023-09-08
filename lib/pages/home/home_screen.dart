@@ -1,3 +1,4 @@
+import 'package:bubbletea/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(sharedPreferences.getString('token'));
     SizeConfig().init(context);
     return FutureBuilder(
       future: authController.checkUser(),

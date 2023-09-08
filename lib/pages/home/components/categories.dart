@@ -1,10 +1,14 @@
+import 'package:bubbletea/controller/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/size_config.dart';
 
 class Categories extends StatelessWidget {
-  const Categories({super.key});
+  Categories({super.key});
+
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,36 +20,47 @@ class Categories extends StatelessWidget {
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...List.generate(
-            4,
-            (index) => CategoryCard(
-              icon: categories[index]["icon"],
-              text: categories[index]["text"],
-              press: () {
-                _launchURL2(
-                    Uri.parse('https://www.talabat.com/uae/teddy-pearl'));
-              },
-            ),
-          ),
-          Container(
-            height: getProportionateScreenWidth(55),
-            width: getProportionateScreenWidth(55),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: const Color(0xffffcf3b),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: const Text(
-              'See\n All',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+      child: FutureBuilder(
+        future: homeController.fetchCategory(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...List.generate(
+                  4,
+                  (index) => CategoryCard(
+                    icon: categories[index]["icon"],
+                    text: categories[index]["text"],
+                    press: () {
+                      _launchURL2(
+                          Uri.parse('https://www.talabat.com/uae/teddy-pearl'));
+                    },
+                  ),
+                ),
+                Container(
+                  height: getProportionateScreenWidth(55),
+                  width: getProportionateScreenWidth(55),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffffcf3b),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: const Text(
+                    'See\n All',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }

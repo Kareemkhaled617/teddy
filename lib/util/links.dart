@@ -6,6 +6,7 @@ String loginLink = '${baseLink}teddy-login';
 String signUpLink = '${baseLink}teddy-register';
 String logOutLink = '${baseLink}teddy-logout';
 String checkUserLink = '${baseLink}teddy-check';
+String categoryLink = '${baseLink}teddy-all-category';
 
 Map<String, String> header = {
   'Authorization': sharedPreferences.getString('token') ?? ''
