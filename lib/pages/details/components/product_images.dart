@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/Product.dart';
 import '../../../util/constants.dart';
 import '../../../util/size_config.dart';
 
@@ -10,7 +9,7 @@ class ProductImages extends StatefulWidget {
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final product;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -18,6 +17,7 @@ class ProductImages extends StatefulWidget {
 
 class _ProductImagesState extends State<ProductImages> {
   int selectedImage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,19 +34,20 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              tag: widget.product['id'].toString(),
+              child: Image.network(
+                  'https://teddy-pearl.net/${widget.product['image']}'),
             ),
           ),
         ),
         // SizedBox(height: getProportionateScreenWidth(20)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...List.generate(widget.product.images.length,
-                (index) => buildSmallProductPreview(index)),
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     ...List.generate(widget.product.images.length,
+        //         (index) => buildSmallProductPreview(index)),
+        //   ],
+        // )
       ],
     );
   }
@@ -62,8 +63,8 @@ class _ProductImagesState extends State<ProductImages> {
         padding: const EdgeInsets.all(8.0),
         child: AnimatedContainer(
           duration: defaultDuration,
-          margin: EdgeInsets.only(right: 15),
-          padding: EdgeInsets.all(8),
+          margin: const EdgeInsets.only(right: 15),
+          padding: const EdgeInsets.all(8),
           height: getProportionateScreenWidth(48),
           width: getProportionateScreenWidth(48),
           decoration: BoxDecoration(

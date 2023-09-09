@@ -4,7 +4,6 @@ import '../../../util/size_config.dart';
 import 'categories.dart';
 import 'discount_banner.dart';
 import 'home_header.dart';
-import 'popular_product.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -21,7 +20,7 @@ class Body extends StatelessWidget {
             Categories(),
             // const SpecialOffers(),
             // SizedBox(height: getProportionateScreenWidth(30)),
-            const PopularProducts(),
+            // const PopularProducts(),
             SizedBox(height: getProportionateScreenWidth(20)),
 
             InkWell(

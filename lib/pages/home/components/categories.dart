@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/size_config.dart';
+import '../../category_products/category_products.dart';
 
 class Categories extends StatelessWidget {
   Categories({super.key});
@@ -12,30 +13,33 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/drinks/d1.png", "text": "Berry"},
-      {"icon": "assets/drinks/d2.png", "text": "Mango"},
-      {"icon": "assets/drinks/d3.png", "text": "Stawbbery"},
-      {"icon": "assets/drinks/d4.png", "text": "Passion Love"},
-    ];
+    // List<Map<String, dynamic>> categories = [
+    //   {"icon": "assets/drinks/d1.png", "text": "Berry"},
+    //   {"icon": "assets/drinks/d2.png", "text": "Mango"},
+    //   {"icon": "assets/drinks/d3.png", "text": "Stawbbery"},
+    //   {"icon": "assets/drinks/d4.png", "text": "Passion Love"},
+    // ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
       child: FutureBuilder(
         future: homeController.fetchCategory(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            Map data = snapshot.data as Map;
+            List categories = data['data'];
             return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ...List.generate(
-                  4,
+                  categories.length,
                   (index) => CategoryCard(
-                    icon: categories[index]["icon"],
-                    text: categories[index]["text"],
+                    icon: "assets/drinks/d1.png",
+                    text: categories[index]["name"],
                     press: () {
-                      _launchURL2(
-                          Uri.parse('https://www.talabat.com/uae/teddy-pearl'));
+                      Get.to(CategoryProducts(
+                        categoryID: categories[index]["id"].toString(),
+                      ));
                     },
                   ),
                 ),
@@ -85,34 +89,35 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: press,
-          child: SizedBox(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                  height: getProportionateScreenWidth(55),
-                  width: getProportionateScreenWidth(55),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(icon!)),
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(
-                      color: const Color(
-                          0xffFF9200), //                   <--- border color
-                    ),
-                  ),
-                  // child: Image.asset(icon!,fit: BoxFit.fill,),
+    return GestureDetector(
+      onTap: press,
+      child: SizedBox(
+        width: 80,
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+              height: getProportionateScreenWidth(55),
+              width: getProportionateScreenWidth(55),
+              decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage(icon!)),
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  color: const Color(
+                      0xffFF9200), //                   <--- border color
                 ),
-                const SizedBox(height: 5),
-                Text(text!, textAlign: TextAlign.center)
-              ],
+              ),
+              // child: Image.asset(icon!,fit: BoxFit.fill,),
             ),
-          ),
+            const SizedBox(height: 5),
+            Text(
+              text!,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
         ),
-      ],
+      ),
     );
   }
 }

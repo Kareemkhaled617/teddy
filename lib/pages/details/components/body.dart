@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/Product.dart';
 import '../../../util/size_config.dart';
 import '../../cart/components/default_button.dart';
 import 'color_dots.dart';
@@ -9,7 +8,7 @@ import 'product_images.dart';
 import 'top_rounded_container.dart';
 
 class Body extends StatelessWidget {
-  final Product product;
+  final product;
 
   const Body({Key? key, required this.product}) : super(key: key);
 

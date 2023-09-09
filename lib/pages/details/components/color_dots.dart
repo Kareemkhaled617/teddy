@@ -2,22 +2,28 @@ import 'package:bubbletea/pages/details/components/rounded_icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../models/Product.dart';
 import '../../../util/size_config.dart';
 import '../../cart/components/default_button.dart';
 
-class ColorDots extends StatelessWidget {
+class ColorDots extends StatefulWidget {
   const ColorDots({
     Key? key,
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final product;
+
+  @override
+  State<ColorDots> createState() => _ColorDotsState();
+}
+
+class _ColorDotsState extends State<ColorDots> {
+  int selectedColor = 1;
 
   @override
   Widget build(BuildContext context) {
     // Now this is fixed and only for demo
-    int selectedColor = 1;
+
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -30,8 +36,11 @@ class ColorDots extends StatelessWidget {
               RoundedIconBtn(
                 icon: Icons.remove,
                 press: () {
-                  setState() {
-                    selectedColor--;
+                  if (selectedColor == 1) {
+                  } else {
+                    setState(() {
+                      selectedColor--;
+                    });
                   }
                 },
               ),
@@ -46,12 +55,14 @@ class ColorDots extends StatelessWidget {
                 icon: Icons.add,
                 showShadow: true,
                 press: () {
-                  selectedColor++;
+                  setState(() {
+                    selectedColor++;
+                  });
                 },
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           SizedBox(

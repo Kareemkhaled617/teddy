@@ -7,4 +7,15 @@ class HomeController extends GetxController {
     Map category = await Crud.getRequest(categoryLink);
     return category;
   }
+
+  Future fetchCategoryJuices(String categoryID) async {
+    Map categoryJuices =
+        await Crud.postRequest(categoryJuicesLink, {'category_id': categoryID});
+    return categoryJuices;
+  }
+
+  Future fetchJuicesDetails(String id) async {
+    Map juices = await Crud.postRequest(juicesDetailsLink, {'id': id});
+    return juices;
+  }
 }
