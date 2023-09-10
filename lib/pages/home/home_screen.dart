@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(sharedPreferences.getString('token'));
+    print(sharedPreferences.getString('id'));
     SizeConfig().init(context);
     return FutureBuilder(
       future: authController.checkUser(),

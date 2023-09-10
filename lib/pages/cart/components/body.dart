@@ -1,8 +1,8 @@
+import 'package:bubbletea/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
-import '../../../models/Cart.dart';
-import '../../../util/size_config.dart';
 import 'cart_card.dart';
 
 class Body extends StatefulWidget {
@@ -13,25 +13,32 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  CartController cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: demoCarts.length,
+    return FutureBuilder(
+        future: cartController.fetchUserCart(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Map cart = snapshot.data as Map;
+            return ListView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: cart['data']['juice'].length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Dismissible(
-                  key: Key(demoCarts[index].product.id.toString()),
+                  key: Key(cart['data']['juice'][index]['cart_id'].toString()),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
-                    setState(() {
-                      demoCarts.removeAt(index);
+                    cartController
+                        .deleteItemFromCart(
+                            cart['data']['juice'][index]['cart_id'].toString())
+                        .whenComplete(() {
+                      setState(() {
+                        // Remove the dismissed item from the list
+                        cart['data']['juice'].removeAt(index);
+                      });
                     });
                   },
                   background: Container(
@@ -47,13 +54,15 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  child: CartCard(cart: demoCarts[index]),
+                  child: CartCard(cart: cart['data']['juice'][index]),
                 ),
               ),
-            ),
-          ),
-        ),
-      ],
-    );
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }

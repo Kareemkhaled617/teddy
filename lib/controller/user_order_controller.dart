@@ -12,7 +12,7 @@ class UserOrderController extends GetxController {
   }
 
   Future fetchUserOrdersDetails(String orderID) async {
-    Map orders = await Crud.postRequest(userOrdersLink,
+    Map orders = await Crud.postRequest(userOrdersDetailsLink,
         {'user_id': sharedPreferences.getString('id'), 'order_id': orderID});
     return orders;
   }

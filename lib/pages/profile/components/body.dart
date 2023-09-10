@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../orders/orders.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -7,11 +9,11 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
-          SizedBox(height: 20),
+          const ProfilePic(),
+          const SizedBox(height: 20),
           ProfileMenu(
             text: "My Account",
             icon: "assets/icons/User Icon.svg",
@@ -21,6 +23,11 @@ class Body extends StatelessWidget {
             text: "Notifications",
             icon: "assets/icons/Bell.svg",
             press: () {},
+          ),
+          ProfileMenu(
+            text: "My Orders",
+            icon: "assets/icons/Cart Icon.svg",
+            press: () => Get.to(MyOrders()),
           ),
           ProfileMenu(
             text: "Settings",
