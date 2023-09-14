@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/size_config.dart';
-import '../../cart/components/default_button.dart';
 
 class ColorDots extends StatefulWidget {
   const ColorDots({
@@ -65,16 +64,16 @@ class _ColorDotsState extends State<ColorDots> {
           const SizedBox(
             height: 30,
           ),
-          SizedBox(
-            width: 200,
-            child: DefaultButton(
-              text: "Go Talabat",
-              press: () {
-                _launchURL2(
-                    Uri.parse('https://www.talabat.com/uae/teddy-pearl'));
-              },
-            ),
-          ),
+          // SizedBox(
+          //   width: 200,
+          //   child: DefaultButton(
+          //     text: "Go Talabat",
+          //     press: () {
+          //       _launchURL2(
+          //           Uri.parse('https://www.talabat.com/uae/teddy-pearl'));
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

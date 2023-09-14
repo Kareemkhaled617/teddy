@@ -25,54 +25,49 @@ class ProductCard extends StatelessWidget {
           onTap: () => Get.to(DetailsScreen(product: product['id'].toString()),
               duration: const Duration(seconds: 1),
               transition: Transition.fade),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                // height: 270,
-                padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xffffaf33), Color(0xffffcc3a)]),
-                  borderRadius: BorderRadius.circular(15),
+          child: Container(
+            // height: 270,
+            padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xffffaf33), Color(0xffffcc3a)]),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  product['name'] ?? '',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      product['name'] ?? '',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
-                    ),
-                    Hero(
-                      tag: product['id'].toString(),
-                      child: Image.network(
-                        'https://teddy-pearl.net/${product['image']}',
-                        width: 150,
-                        height: 150,
-                      ),
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text(
-                    //       "DHS ${'120'}",
-                    //       style: TextStyle(
-                    //         fontSize: getProportionateScreenWidth(18),
-                    //         fontWeight: FontWeight.w600,
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // )
-                  ],
+                Hero(
+                  tag: product['id'].toString(),
+                  child: Image.network(
+                    'https://teddy-pearl.net/${product['image']}',
+                    width: 150,
+                    height: 150,
+                  ),
                 ),
-              ),
-            ],
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       "DHS ${'120'}",
+                //       style: TextStyle(
+                //         fontSize: getProportionateScreenWidth(18),
+                //         fontWeight: FontWeight.w600,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ],
+                // )
+              ],
+            ),
           ),
         ),
       ),
