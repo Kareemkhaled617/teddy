@@ -1,7 +1,9 @@
 import 'package:bubbletea/pages/details/components/rounded_icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../controller/home_controller.dart';
 import '../../../util/size_config.dart';
 
 class ColorDots extends StatefulWidget {
@@ -39,6 +41,8 @@ class _ColorDotsState extends State<ColorDots> {
                   } else {
                     setState(() {
                       selectedColor--;
+                      Get.find<HomeController>()
+                          .updateQuantity(quantity: selectedColor.toString());
                     });
                   }
                 },
@@ -56,6 +60,8 @@ class _ColorDotsState extends State<ColorDots> {
                 press: () {
                   setState(() {
                     selectedColor++;
+                    Get.find<HomeController>()
+                        .updateQuantity(quantity: selectedColor.toString());
                   });
                 },
               ),

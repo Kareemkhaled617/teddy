@@ -5,8 +5,24 @@ import '../util/crud.dart';
 import '../util/links.dart';
 
 class CartController extends GetxController {
-  Future addToCart(String userId) async {
-    Map orders = await Crud.postRequest(addToCartLink, {'user_id': userId});
+  Future addToCart({
+    required String userId,
+    required String sugar,
+    required String ice,
+    required String size,
+    required List adds,
+    required String quantity,
+    required String juice,
+  }) async {
+    Map orders = await Crud.postRequest(addToCartLink, {
+      'user_id': userId,
+      'sugar': sugar,
+      'size': size,
+      'adds[]': adds,
+      'ice': ice,
+      'quantity': quantity,
+      'juice': juice
+    });
     return orders;
   }
 

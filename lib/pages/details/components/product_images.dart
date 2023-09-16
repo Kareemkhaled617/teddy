@@ -25,17 +25,13 @@ class _ProductImagesState extends State<ProductImages> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xffffaf33), Color(0xffffcc3a)]),
           ),
           width: getProportionateScreenWidth(238),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Hero(
-              tag: widget.product['id'].toString(),
-              child: Image.network(
+          child: Hero(
+            tag: widget.product['id'].toString(),
+            child: CircleAvatar(
+              radius: 100,
+              backgroundImage: NetworkImage(
                   'https://teddy-pearl.net/${widget.product['image']}'),
             ),
           ),

@@ -4,6 +4,10 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   List addons = [];
+  String sugarId = '';
+  String iceId = '';
+  String sizeId = '';
+  String quantityId = '';
 
   Future fetchCategory() async {
     Map category = await Crud.getRequest(categoryLink);
@@ -42,5 +46,25 @@ class HomeController extends GetxController {
 
   bool itemExists(String itemName) {
     return addons.any((item) => item == itemName);
+  }
+
+  updateSugarId({required String sugar}) {
+    sugarId = sugar;
+    update();
+  }
+
+  updateIceId({required String ice}) {
+    iceId = ice;
+    update();
+  }
+
+  updateSizeId({required String size}) {
+    sizeId = size;
+    update();
+  }
+
+  updateQuantity({required String quantity}) {
+    quantityId = quantity;
+    update();
   }
 }
