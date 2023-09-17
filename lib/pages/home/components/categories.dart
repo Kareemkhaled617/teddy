@@ -27,37 +27,40 @@ class Categories extends StatelessWidget {
           if (snapshot.hasData) {
             Map data = snapshot.data as Map;
             List categories = data['data'];
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...List.generate(
-                  categories.length,
-                  (index) => CategoryCard(
-                    icon: "assets/drinks/d1.png",
-                    text: categories[index]["name"],
-                    press: () {
-                      Get.to(CategoryProducts(
-                        categoryID: categories[index]["id"].toString(),
-                      ));
-                    },
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...List.generate(
+                    categories.length <= 4 ? categories.length : 4,
+                    (index) => CategoryCard(
+                      icon: "assets/drinks/d1.png",
+                      text: categories[index]["name"],
+                      press: () {
+                        Get.to(CategoryProducts(
+                          categoryID: categories[index]["id"].toString(),
+                        ));
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  height: getProportionateScreenWidth(55),
-                  width: getProportionateScreenWidth(55),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffffcf3b),
-                    borderRadius: BorderRadius.circular(30),
+                  Container(
+                    height: getProportionateScreenWidth(55),
+                    width: getProportionateScreenWidth(55),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffffcf3b),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Text(
+                      'See\n All',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  child: const Text(
-                    'See\n All',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
+                ],
+              ),
             );
           } else {
             return const Center(

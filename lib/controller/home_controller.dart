@@ -67,4 +67,13 @@ class HomeController extends GetxController {
     quantityId = quantity;
     update();
   }
+
+  updateAllData() {
+    addons = [];
+    sugarId = '';
+    iceId = '';
+    sizeId = '';
+    quantityId = '';
+    update();
+  }
 }

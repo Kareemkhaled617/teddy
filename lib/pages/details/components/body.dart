@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bubbletea/controller/home_controller.dart';
 import 'package:bubbletea/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/cart_controller.dart';
+import '../../../util/bottom_message.dart';
 import '../../../util/constants.dart';
 import '../../../util/size_config.dart';
 import '../../cart/components/default_button.dart';
@@ -28,6 +30,12 @@ class _BodyState extends State<Body> {
   bool isOpen2 = false;
   bool isOpen3 = false;
   CartController cartController = Get.put(CartController());
+
+  @override
+  void dispose() {
+    Get.find<HomeController>().updateAllData();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -396,14 +404,33 @@ class _BodyState extends State<Body> {
         child: DefaultButton(
           text: "Add To Cart",
           press: () {
-            cartController.addToCart(
-                userId: sharedPreferences.getString('id') ?? '',
-                sugar: Get.find<HomeController>().sugarId,
-                ice: Get.find<HomeController>().iceId,
-                size: Get.find<HomeController>().sizeId,
-                adds: Get.find<HomeController>().addons,
-                quantity: Get.find<HomeController>().quantityId,
-                juice: widget.product['id']);
+            cartController
+                .addToCart(
+                    userId: sharedPreferences.getString('id') ?? '',
+                    sugar: Get.find<HomeController>().sugarId,
+                    ice: Get.find<HomeController>().iceId,
+                    size: Get.find<HomeController>().sizeId,
+                    adds: Get.find<HomeController>().addons.toString(),
+                    quantity: Get.find<HomeController>().quantityId,
+                    juice: widget.product['id'].toString())
+                .then((value) {
+              if (value['message'] == 'Added To Cart Successfully') {
+                Get.find<HomeController>().updateAllData();
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(bottomMessage(
+                      title: 'Teddy',
+                      message: 'Added To Cart Successfully',
+                      type: ContentType.success));
+              } else {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(bottomMessage(
+                      title: 'Teddy',
+                      message: 'Failed to Add',
+                      type: ContentType.failure));
+              }
+            });
           },
         ),
       ),

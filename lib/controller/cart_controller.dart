@@ -10,19 +10,32 @@ class CartController extends GetxController {
     required String sugar,
     required String ice,
     required String size,
-    required List adds,
+    required String adds,
     required String quantity,
     required String juice,
   }) async {
-    Map orders = await Crud.postRequest(addToCartLink, {
-      'user_id': userId,
+    print({
+      'user': userId,
       'sugar': sugar,
       'size': size,
-      'adds[]': adds,
+      'adds': adds,
       'ice': ice,
       'quantity': quantity,
-      'juice': juice
+      'juice': juice,
+      'basis': '',
     });
+    var orders = await Crud.postRequest(addToCartLink, {
+      'user': userId,
+      'sugar': sugar,
+      'size': size,
+      'adds': adds,
+      'ice': ice,
+      'quantity': quantity,
+      'juice': juice,
+      'basis': '',
+    });
+    print('******************');
+    print(orders);
     return orders;
   }
 

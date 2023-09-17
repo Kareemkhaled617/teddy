@@ -35,22 +35,26 @@ class ProductCard extends StatelessWidget {
                   colors: [Color(0xffffaf33), Color(0xffffcc3a)]),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  product['name'] ?? '',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18),
-                ),
                 Hero(
-                  tag: product['id'].toString(),
-                  child: Image.network(
-                    'https://teddy-pearl.net/${product['image']}',
-                    width: 150,
-                    height: 150,
+                    tag: product['id'].toString(),
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: NetworkImage(
+                          'https://teddy-pearl.net/${product['image']}'),
+                    )),
+                const SizedBox(
+                  width: 12,
+                ),
+                Flexible(
+                  child: Text(
+                    product['name'] ?? '',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18),
                   ),
                 ),
                 // Row(

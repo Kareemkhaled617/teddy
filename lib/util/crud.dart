@@ -1,19 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bubbletea/util/links.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
+import '../main.dart';
+
 class Crud {
   File? imageFile;
 
   static postRequest(String url, Map data) async {
     try {
-      var response = await post(Uri.parse(url), body: data, headers: header);
+      var response = await post(Uri.parse(url), body: data, headers: {
+        'Authorization': sharedPreferences.getString('token') ?? ''
+      });
       if (response.statusCode == 200) {
         var resData = jsonDecode(response.body);
         print('**************************');
@@ -29,7 +32,9 @@ class Crud {
 
   static getRequest(String url) async {
     try {
-      var response = await get(Uri.parse(url), headers: header);
+      var response = await get(Uri.parse(url), headers: {
+        'Authorization': sharedPreferences.getString('token') ?? ''
+      });
       if (response.statusCode == 200) {
         var resData = jsonDecode(response.body);
         print('**************************');
